@@ -1,7 +1,7 @@
 ## intugine
 
 
-# Install all the dependencies
+## Install all the dependencies
 
 npm i
 
