@@ -1,8 +1,9 @@
-# intugine
+## intugine
 
 
-#Install all the dependencies.
-# npm i 
+##Install all the dependencies.
+
+npm i
 
 # create .env file
 add DB_STRING
@@ -10,13 +11,13 @@ add ACCESS_TOKEN_SECRET
 add REFRESH_TOKEN_SECRET
 
 
-#Start the project.
+# Start the project.
 
-#npm run devStart
+npm run devStart
 
-#To test Apis register and login user every time server starts
+# To test Apis register and login user every time server starts
 
-#Register
+# Register
 
 eg:
 POST
@@ -29,22 +30,22 @@ http://localhost:5000/registerUsers /registerUsers
 "password" : "12345678"
 }
 
-#Login
+# Login
 eg:
 POST
 http://localhost:5000/login
 
-#sample data in body
+# sample data in body
 { 
 "email" : "biswasranjith",
 "password" : "12345678"
 }
 
-#returns accessToken and refreshToken
-#copy accessToken
+returns accessToken and refreshToken
+copy accessToken
 
 
-#to refresh token
+# To refresh token
 POST
 http://localhost:5000/token
 
@@ -53,7 +54,7 @@ http://localhost:5000/token
  "token": "<REFERESH-TOKEN>
 }
 
-#To get devices 
+# To get devices 
 
 eg:
 GET
@@ -63,7 +64,7 @@ Headers
 Content-Type = application/json
 Authorization = Bearer <ACCESS-TOKEN>
 
-#to get devices with locations
+# To get devices with locations
 
 eg:
 GET
@@ -73,7 +74,7 @@ Headers
 Content-Type = application/json
 Authorization = Bearer <ACCESS-TOKEN>
 
-#add deviceId and page in params 
+add deviceId and page in params 
 
 
 
