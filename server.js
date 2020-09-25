@@ -33,7 +33,6 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
   if (token == null) return res.sendStatus(401)
-
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log(err)
     if (err) return res.sendStatus(403)
@@ -41,7 +40,6 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
-
 
 app.post('/token', (req, res) => {
   const refreshToken = req.body.token
@@ -61,7 +59,7 @@ app.delete('/logout', (req, res) => {
 
 
 
-app.get('/users',authenticateToken, (req, res) => {
+app.get('/users',authenticateToken , (req, res) => {
   res.json(users)
 })
 
@@ -70,12 +68,12 @@ app.post('/registerUsers', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const user = { name: req.body.name, password: hashedPassword, email: req.body.email }
     users.push(user)
-    res.status(201).send()
+    res.status(201).send('registered');
   } catch {
     res.status(500).send()
   }
 })
-
+//---------------PROBLEM STATEMENT 1-----------------//
 app.post('/login', async (req, res) => {
   const user = users.find(user => user.email === req.body.email)
   if (user == null) {
@@ -87,9 +85,7 @@ app.post('/login', async (req, res) => {
   const accessToken = generateAccessToken(user)
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
   refreshTokens.push(refreshToken)
-  res.json({ accessToken: accessToken, refreshToken: refreshToken })
-    
-     //res.send('Success user is valid'      
+  res.json({ accessToken: accessToken, refreshToken: refreshToken })      
 
     } else {
       res.send('User is invalid')
@@ -101,31 +97,17 @@ app.post('/login', async (req, res) => {
 
 
 
-
-app.get('/devices',authenticateToken,  async (req,res)=>{
-  
+//-----------------PROBLEM STATEMENT 2-----------------
+app.get('/devices',authenticateToken, async (req,res)=>{
      Devices.find(function (err, name){
+       if(err){
+         return res.json(err);
+       }
       return res.json(name)
-     })
-// var query = Devices.find({}).stream();
-
-// query.on('data', function (doc) {
-//     return res.json(doc);
-// }).on('error', function (err) {
-//     return res,json(err)
-// }).on('close', function () {
-//     // the stream is closed
-// });
-
-// Devices.countDocuments({}, function (err, count) {
-  
-//       console.log(count);
-//   })
-
-   
+     })   
 });
 
-
+//---------------------PROBLEM STATEMENT 3----------------------
 app.get('/deviceslocs/:deviceId',authenticateToken, async (req,res)=>{
   const deviceId = req.params.deviceId
   const { page, perPage } = req.query;
@@ -135,11 +117,21 @@ app.get('/deviceslocs/:deviceId',authenticateToken, async (req,res)=>{
   };
 const status = await Status.paginate({device: deviceId}, options);
 return res.json(status);
+})
+
+//-------------------------------PROBLEM STATEMENT 4------------------//
+app.get('/sortbytime', async (req,res, next)=>{
 
 })
 
+//-------------------------PROBLEM STATEMENT 5--------------------//
 
 
+app.get('/halts', async (req,res, next)=>{
+  
+})
+
+//-----------------------------------------------------------------//
 app.listen(port, () => console.log("server started on port" + port));
 
 module.exports = app;
