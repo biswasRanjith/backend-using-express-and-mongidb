@@ -1,13 +1,15 @@
 ## intugine
 
 
-##Install all the dependencies.
+#Install all the dependencies.
 
 npm i
 
 # create .env file
 add DB_STRING
+
 add ACCESS_TOKEN_SECRET
+
 add REFRESH_TOKEN_SECRET
 
 
@@ -51,7 +53,7 @@ http://localhost:5000/token
 
 #sample data in body
 { 
- "token": "<REFERESH-TOKEN>
+ "token": "<REFERESH-TOKEN>"
 }
 
 # To get devices 
